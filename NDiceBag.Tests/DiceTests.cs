@@ -12,7 +12,7 @@ namespace DiceBag.Tests
 		{
 			//Setup
 			//Execute
-			var dice = 3.d(6);
+			var dice = 3.d();
 
 			//Verify
 			dice.Sides.ShouldEqual(6);
@@ -25,7 +25,7 @@ namespace DiceBag.Tests
 		public void DiceCanBeRolled()
 		{
 			//Setup
-			var dice = 3.d(6);
+			var dice = 3.d();
 
 			//Execute
 			var roll = dice.Roll();
@@ -41,7 +41,7 @@ namespace DiceBag.Tests
 		public void DiceRollsCanHaveMultipliers()
 		{
 			//Setup
-			var dice = 3.d(6).x(10);
+			var dice = 3.d().x(10);
 			
 			//Execute
 			var roll = dice.Roll();
@@ -105,7 +105,7 @@ namespace DiceBag.Tests
 		public void DiceCanBeAdded()
 		{
 			//Setup
-			var dice1 = 3.d(6);
+			var dice1 = 3.d();
 			var dice2 = 1.d(4);
 
 			//Execute
@@ -122,7 +122,7 @@ namespace DiceBag.Tests
 		public void DiceCanBeSubtracted()
 		{
 			//Setup
-			var dice1 = 3.d(6);
+			var dice1 = 3.d();
 			var dice2 = 1.d(4);
 
 			//Execute
@@ -139,14 +139,14 @@ namespace DiceBag.Tests
 		public void DiceCanBeMultiplied()
 		{
 			//Setup
-			var dice1 = 3.d(6);
+			var dice1 = 3.d();
 			var dice2 = 1.d(4);
 
 			//Execute
 			var roll = (dice1 * dice2).Roll();
 
 			//Verify
-			roll.ShouldBeGreaterThan(3);
+			roll.ShouldBeGreaterThan(2);
 			roll.ShouldBeLessThan(73);
 
 			//Teardown
@@ -157,7 +157,7 @@ namespace DiceBag.Tests
 		{
 			//Setup
 			//Execute
-			var roll = (3.d(6) + 1.d(4)).Roll();
+			var roll = (3.d() + 1.d(4)).Roll();
 
 			//Verify
 			roll.ShouldBeGreaterThan(3);
@@ -171,7 +171,7 @@ namespace DiceBag.Tests
 		{
 			//Setup
 			//Execute
-			var roll = (3.d(6) - 1.d(4)).Roll();
+			var roll = (3.d() - 1.d(4)).Roll();
 
 			//Verify
 			roll.ShouldBeGreaterThan(-1);
