@@ -1,4 +1,5 @@
-﻿using FubuTestingSupport;
+﻿using System.Collections.Generic;
+using FubuTestingSupport;
 using NDiceBag;
 using NUnit.Framework;
 
@@ -7,6 +8,18 @@ namespace DiceBag.Tests
 	[TestFixture]
 	public class DiceTests
 	{
+		private static IEnumerable<int> Generate1000Rolls(Dice dice)
+		{
+			var rolls = new List<int>();
+
+			for (var i = 0; i < 1000; i++)
+			{
+				rolls.Add(dice.Roll());
+			}
+
+			return rolls;
+		}
+
 		[Test]
 		public void DiceCanBeCreatedFromAnInteger()
 		{
@@ -28,11 +41,14 @@ namespace DiceBag.Tests
 			var dice = 3.d();
 
 			//Execute
-			var roll = dice.Roll();
+			var rolls = Generate1000Rolls(dice);
 
 			//Verify
-			roll.ShouldBeGreaterThan(2);
-			roll.ShouldBeLessThan(19);
+			rolls.Each(roll =>
+			{
+				roll.ShouldBeGreaterThan(2);
+				roll.ShouldBeLessThan(19);
+			});
 
 			//Teardown
 		}
@@ -44,11 +60,14 @@ namespace DiceBag.Tests
 			var dice = 3.d().x(10);
 			
 			//Execute
-			var roll = dice.Roll();
+			var rolls = Generate1000Rolls(dice);
 
 			//Verify
-			roll.ShouldBeGreaterThan(29);
-			roll.ShouldBeLessThan(181);
+			rolls.Each(roll =>
+			{
+				roll.ShouldBeGreaterThan(29);
+				roll.ShouldBeLessThan(181);
+			});
 
 			//Teardown
 		}
@@ -60,11 +79,14 @@ namespace DiceBag.Tests
 			var dice = 1.d(4).Plus(1).Plus(2);
 
 			//Execute
-			var roll = dice.Roll();
+			var rolls = Generate1000Rolls(dice);
 
 			//Verify
-			roll.ShouldBeGreaterThan(3);
-			roll.ShouldBeLessThan(7);
+			rolls.Each(roll =>
+			{
+				roll.ShouldBeGreaterThan(3);
+				roll.ShouldBeLessThan(7);
+			});
 
 			//Teardown
 		}
@@ -76,11 +98,14 @@ namespace DiceBag.Tests
 			var dice = 1.d(4).Minus(1).Minus(2);
 
 			//Execute
-			var roll = dice.Roll();
+			var rolls = Generate1000Rolls(dice);
 
 			//Verify
-			roll.ShouldBeGreaterThan(-3);
-			roll.ShouldBeLessThan(2);
+			rolls.Each(roll =>
+			{
+				roll.ShouldBeGreaterThan(-3);
+				roll.ShouldBeLessThan(2);
+			});
 
 			//Teardown
 		}
@@ -92,11 +117,14 @@ namespace DiceBag.Tests
 			var dice = 1.d(4).x(10).Minus(5).Plus(3);
 
 			//Execute
-			var roll = dice.Roll();
+			var rolls = Generate1000Rolls(dice);
 
 			//Verify
-			roll.ShouldBeGreaterThan(7);
-			roll.ShouldBeLessThan(39);
+			rolls.Each(roll =>
+			{
+				roll.ShouldBeGreaterThan(7);
+				roll.ShouldBeLessThan(39);
+			});
 
 			//Teardown
 		}
@@ -109,11 +137,14 @@ namespace DiceBag.Tests
 			var dice2 = 1.d(4);
 
 			//Execute
-			var roll = (dice1 + dice2).Roll();
+			var rolls = Generate1000Rolls(dice1 + dice2);
 
 			//Verify
-			roll.ShouldBeGreaterThan(3);
-			roll.ShouldBeLessThan(23);
+			rolls.Each(roll =>
+			{
+				roll.ShouldBeGreaterThan(3);
+				roll.ShouldBeLessThan(23);
+			});
 
 			//Teardown
 		}
@@ -126,11 +157,14 @@ namespace DiceBag.Tests
 			var dice2 = 1.d(4);
 
 			//Execute
-			var roll = (dice1 - dice2).Roll();
+			var rolls = Generate1000Rolls(dice1 - dice2);
 
 			//Verify
-			roll.ShouldBeGreaterThan(-1);
-			roll.ShouldBeLessThan(17);
+			rolls.Each(roll =>
+			{
+				roll.ShouldBeGreaterThan(-1);
+				roll.ShouldBeLessThan(17);
+			});
 
 			//Teardown
 		}
@@ -143,11 +177,14 @@ namespace DiceBag.Tests
 			var dice2 = 1.d(4);
 
 			//Execute
-			var roll = (dice1 * dice2).Roll();
+			var rolls = Generate1000Rolls(dice1 * dice2);
 
 			//Verify
+			rolls.Each(roll =>
+			{
 			roll.ShouldBeGreaterThan(2);
 			roll.ShouldBeLessThan(73);
+			});
 
 			//Teardown
 		}
@@ -157,11 +194,14 @@ namespace DiceBag.Tests
 		{
 			//Setup
 			//Execute
-			var roll = (3.d() + 1.d(4)).Roll();
+			var rolls = Generate1000Rolls(3.d() + 1.d(4));
 
 			//Verify
-			roll.ShouldBeGreaterThan(3);
-			roll.ShouldBeLessThan(23);
+			rolls.Each(roll =>
+			{
+				roll.ShouldBeGreaterThan(3);
+				roll.ShouldBeLessThan(23);
+			});
 			
 			//Teardown
 		}
@@ -171,11 +211,14 @@ namespace DiceBag.Tests
 		{
 			//Setup
 			//Execute
-			var roll = (3.d() - 1.d(4)).Roll();
+			var rolls = Generate1000Rolls(3.d() - 1.d(4));
 
 			//Verify
-			roll.ShouldBeGreaterThan(-1);
-			roll.ShouldBeLessThan(17);
+			rolls.Each(roll =>
+			{
+				roll.ShouldBeGreaterThan(-1);
+				roll.ShouldBeLessThan(17);
+			});
 
 			//Teardown
 		}
@@ -187,11 +230,14 @@ namespace DiceBag.Tests
 			var dice = 3.d();
 
 			//Execute
-			var roll = dice.Roll();
+			var rolls = Generate1000Rolls(dice);
 
 			//Verify
-			roll.ShouldBeGreaterThan(2);
-			roll.ShouldBeLessThan(19);
+			rolls.Each(roll =>
+			{
+				roll.ShouldBeGreaterThan(2);
+				roll.ShouldBeLessThan(19);
+			});
 
 			//Teardown
 		}
@@ -203,11 +249,150 @@ namespace DiceBag.Tests
 			var dice = 1.d(4).d(6);
 			
 			//Execute
-			var roll = dice.Roll();
+			var rolls = Generate1000Rolls(dice);
 
 			//Verify
-			roll.ShouldBeGreaterThan(0);
-			roll.ShouldBeLessThan(25);
+			rolls.Each(roll =>
+			{
+				roll.ShouldBeGreaterThan(0);
+				roll.ShouldBeLessThan(25);
+			});
+
+			//Teardown
+		}
+
+		[Test]
+		public void CanGrabPercentileDice()
+		{
+			//Setup
+			var dice = this.GrabPercentileDice();
+
+			//Execute
+			var rolls = Generate1000Rolls(dice);
+
+			//Verify
+			dice.Sides.ShouldEqual(100);
+			dice.NumberOfDice.ShouldEqual(1);
+
+			rolls.Each(roll =>
+			{
+				roll.ShouldBeGreaterThan(0);
+				roll.ShouldBeLessThan(101);
+			});
+
+			//Teardown
+		}
+
+		[Test]
+		public void DiceCanBeDividedRoundingDown()
+		{
+			//Setup
+			var dice = 1.d(4).DivideRoundingDown(2);
+
+			//Execute
+			var rolls = Generate1000Rolls(dice);
+
+			//Verify
+			rolls.Each(roll =>
+			{
+				roll.ShouldBeGreaterThan(-1);
+				roll.ShouldBeLessThan(3);
+			});
+
+			//Teardown
+		}
+
+		[Test]
+		public void DiceCanBeDividedRoundingUp()
+		{
+			//Setup
+			var dice = 1.d(4).DivideRoundingUp(2);
+
+			//Execute
+			var rolls = Generate1000Rolls(dice);
+
+			//Verify
+			rolls.Each(roll =>
+			{
+				roll.ShouldBeGreaterThan(0);
+				roll.ShouldBeLessThan(3);
+			});
+
+			//Teardown
+		}
+
+		[Test]
+		public void DiceCanHaveIntegerAdditionModifiersUsingOperators()
+		{
+			//Setup
+			var dice = 1.d(4) + 1 + 2;
+
+			//Execute
+			var rolls = Generate1000Rolls(dice);
+
+			//Verify
+			rolls.Each(roll =>
+			{
+				roll.ShouldBeGreaterThan(3);
+				roll.ShouldBeLessThan(7);
+			});
+
+			//Teardown
+		}
+
+		[Test]
+		public void DiceCanHaveIntegerSubtractionModifiersUsingOperators()
+		{
+			//Setup
+			var dice = 1.d(4) - 1 - 2;
+
+			//Execute
+			var rolls = Generate1000Rolls(dice);
+
+			//Verify
+			rolls.Each(roll =>
+			{
+				roll.ShouldBeGreaterThan(-3);
+				roll.ShouldBeLessThan(2);
+			});
+
+			//Teardown
+		}
+
+		[Test]
+		public void DiceCanHaveIntegerMultipliersUsingOperators()
+		{
+			//Setup
+			var dice = 3.d() * 10;
+
+			//Execute
+			var rolls = Generate1000Rolls(dice);
+
+			//Verify
+			rolls.Each(roll =>
+			{
+				roll.ShouldBeGreaterThan(29);
+				roll.ShouldBeLessThan(181);
+			});
+
+			//Teardown
+		}
+
+		[Test]
+		public void DiceRollsCanHaveMixedIntegerModifiersUsingOperators()
+		{
+			//Setup
+			var dice = 1.d(4) * 10 - 5 + 3;
+
+			//Execute
+			var rolls = Generate1000Rolls(dice);
+
+			//Verify
+			rolls.Each(roll =>
+			{
+				roll.ShouldBeGreaterThan(7);
+				roll.ShouldBeLessThan(39);
+			});
 
 			//Teardown
 		}
