@@ -8,32 +8,6 @@ namespace DiceBag.Tests
 	[TestFixture]
 	public class DiceTests
 	{
-		private static IEnumerable<int> Generate1000Rolls(Dice dice)
-		{
-			var rolls = new List<int>();
-
-			for (var i = 0; i < 1000; i++)
-			{
-				rolls.Add(dice.Roll());
-			}
-
-			return rolls;
-		}
-
-		[Test]
-		public void DiceCanBeCreatedFromAnInteger()
-		{
-			//Setup
-			//Execute
-			var dice = 3.d();
-
-			//Verify
-			dice.Sides.ShouldEqual(6);
-			dice.NumberOfDice.ShouldEqual(3);
-
-			//Teardown
-		}
-
 		[Test]
 		public void DiceCanBeRolled()
 		{
@@ -41,7 +15,7 @@ namespace DiceBag.Tests
 			var dice = 3.d();
 
 			//Execute
-			var rolls = Generate1000Rolls(dice);
+			var rolls = TestHelpers.Generate1000Rolls(dice);
 
 			//Verify
 			rolls.Each(roll =>
@@ -60,7 +34,7 @@ namespace DiceBag.Tests
 			var dice = 3.d().x(10);
 			
 			//Execute
-			var rolls = Generate1000Rolls(dice);
+			var rolls = TestHelpers.Generate1000Rolls(dice);
 
 			//Verify
 			rolls.Each(roll =>
@@ -79,7 +53,7 @@ namespace DiceBag.Tests
 			var dice = 1.d(4).Plus(1).Plus(2);
 
 			//Execute
-			var rolls = Generate1000Rolls(dice);
+			var rolls = TestHelpers.Generate1000Rolls(dice);
 
 			//Verify
 			rolls.Each(roll =>
@@ -98,7 +72,7 @@ namespace DiceBag.Tests
 			var dice = 1.d(4).Minus(1).Minus(2);
 
 			//Execute
-			var rolls = Generate1000Rolls(dice);
+			var rolls = TestHelpers.Generate1000Rolls(dice);
 
 			//Verify
 			rolls.Each(roll =>
@@ -117,7 +91,7 @@ namespace DiceBag.Tests
 			var dice = 1.d(4).x(10).Minus(5).Plus(3);
 
 			//Execute
-			var rolls = Generate1000Rolls(dice);
+			var rolls = TestHelpers.Generate1000Rolls(dice);
 
 			//Verify
 			rolls.Each(roll =>
@@ -137,7 +111,7 @@ namespace DiceBag.Tests
 			var dice2 = 1.d(4);
 
 			//Execute
-			var rolls = Generate1000Rolls(dice1 + dice2);
+			var rolls = TestHelpers.Generate1000Rolls(dice1 + dice2);
 
 			//Verify
 			rolls.Each(roll =>
@@ -157,7 +131,7 @@ namespace DiceBag.Tests
 			var dice2 = 1.d(4);
 
 			//Execute
-			var rolls = Generate1000Rolls(dice1 - dice2);
+			var rolls = TestHelpers.Generate1000Rolls(dice1 - dice2);
 
 			//Verify
 			rolls.Each(roll =>
@@ -177,7 +151,7 @@ namespace DiceBag.Tests
 			var dice2 = 1.d(4);
 
 			//Execute
-			var rolls = Generate1000Rolls(dice1 * dice2);
+			var rolls = TestHelpers.Generate1000Rolls(dice1 * dice2);
 
 			//Verify
 			rolls.Each(roll =>
@@ -194,7 +168,7 @@ namespace DiceBag.Tests
 		{
 			//Setup
 			//Execute
-			var rolls = Generate1000Rolls(3.d() + 1.d(4));
+			var rolls = TestHelpers.Generate1000Rolls(3.d() + 1.d(4));
 
 			//Verify
 			rolls.Each(roll =>
@@ -211,7 +185,7 @@ namespace DiceBag.Tests
 		{
 			//Setup
 			//Execute
-			var rolls = Generate1000Rolls(3.d() - 1.d(4));
+			var rolls = TestHelpers.Generate1000Rolls(3.d() - 1.d(4));
 
 			//Verify
 			rolls.Each(roll =>
@@ -224,32 +198,13 @@ namespace DiceBag.Tests
 		}
 
 		[Test]
-		public void DShouldDefaultToSixSides()
-		{
-			//Setup
-			var dice = 3.d();
-
-			//Execute
-			var rolls = Generate1000Rolls(dice);
-
-			//Verify
-			rolls.Each(roll =>
-			{
-				roll.ShouldBeGreaterThan(2);
-				roll.ShouldBeLessThan(19);
-			});
-
-			//Teardown
-		}
-
-		[Test]
 		public void DiceCanHaveARolledNumberOfDiceToRoll()
 		{
 			//Setup
 			var dice = 1.d(4).d(6);
 			
 			//Execute
-			var rolls = Generate1000Rolls(dice);
+			var rolls = TestHelpers.Generate1000Rolls(dice);
 
 			//Verify
 			rolls.Each(roll =>
@@ -262,35 +217,13 @@ namespace DiceBag.Tests
 		}
 
 		[Test]
-		public void CanGrabPercentileDice()
-		{
-			//Setup
-			var dice = this.GrabPercentileDice();
-
-			//Execute
-			var rolls = Generate1000Rolls(dice);
-
-			//Verify
-			dice.Sides.ShouldEqual(100);
-			dice.NumberOfDice.ShouldEqual(1);
-
-			rolls.Each(roll =>
-			{
-				roll.ShouldBeGreaterThan(0);
-				roll.ShouldBeLessThan(101);
-			});
-
-			//Teardown
-		}
-
-		[Test]
 		public void DiceCanBeDividedRoundingDown()
 		{
 			//Setup
 			var dice = 1.d(4).DivideRoundingDown(2);
 
 			//Execute
-			var rolls = Generate1000Rolls(dice);
+			var rolls = TestHelpers.Generate1000Rolls(dice);
 
 			//Verify
 			rolls.Each(roll =>
@@ -309,7 +242,7 @@ namespace DiceBag.Tests
 			var dice = 1.d(4).DivideRoundingUp(2);
 
 			//Execute
-			var rolls = Generate1000Rolls(dice);
+			var rolls = TestHelpers.Generate1000Rolls(dice);
 
 			//Verify
 			rolls.Each(roll =>
@@ -328,7 +261,7 @@ namespace DiceBag.Tests
 			var dice = 1.d(4) + 1 + 2;
 
 			//Execute
-			var rolls = Generate1000Rolls(dice);
+			var rolls = TestHelpers.Generate1000Rolls(dice);
 
 			//Verify
 			rolls.Each(roll =>
@@ -347,7 +280,7 @@ namespace DiceBag.Tests
 			var dice = 1.d(4) - 1 - 2;
 
 			//Execute
-			var rolls = Generate1000Rolls(dice);
+			var rolls = TestHelpers.Generate1000Rolls(dice);
 
 			//Verify
 			rolls.Each(roll =>
@@ -366,7 +299,7 @@ namespace DiceBag.Tests
 			var dice = 3.d() * 10;
 
 			//Execute
-			var rolls = Generate1000Rolls(dice);
+			var rolls = TestHelpers.Generate1000Rolls(dice);
 
 			//Verify
 			rolls.Each(roll =>
@@ -385,7 +318,7 @@ namespace DiceBag.Tests
 			var dice = 1.d(4) * 10 - 5 + 3;
 
 			//Execute
-			var rolls = Generate1000Rolls(dice);
+			var rolls = TestHelpers.Generate1000Rolls(dice);
 
 			//Verify
 			rolls.Each(roll =>
